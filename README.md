@@ -1,60 +1,27 @@
 # Multi-Cloud AI Learning Tracker (20 Weeks) — by **Sumit Chawla**
 
-Interactive, week-by-week plan to learn **AI/ML fundamentals** and build projects on **AWS Bedrock**, **Google Cloud Vertex AI**, and **Oracle AI/ML**.
+This is a static site for GitHub Pages featuring:
+- ✅ Interactive 20-week tracker (checkboxes, search/filter, progress bar)
+- 🌐 **GCP Hosting** page with reference architecture & quickstart scripts
+- ⏬ Export/Import progress JSON, print-friendly
 
-- ✅ Checkboxes for tasks/projects with **localStorage** persistence
-- 🔍 **Search** and **filter by track**
-- 📈 **Progress bar**
-- ⏬ **Export/Import** your progress JSON
-- 🖨️ Print/PDF friendly
+**Live Pages**
+- `/index.html` — tracker
+- `/gcp.html` — GCP model hosting & RAG
 
-**Live Preview**: Open `index.html` in your browser. Deploy on GitHub Pages in minutes.
+## Deploy
+1. Create a repo (e.g., `sumit-multicloud-ai-tracker`).
+2. Upload files to the root (or push via git).
+3. GitHub → **Settings → Pages** → Deploy from `main` (root).
 
----
-
-## 🚀 Deploy to GitHub Pages
-
-1. Create a new repo on GitHub, e.g. `sumit-multicloud-ai-tracker`.
-2. Upload these files (or `git push` if using CLI).
-3. On GitHub, go to **Settings → Pages**:
-   - **Source**: `Deploy from a branch`
-   - **Branch**: `main` (root)
-4. Your site will be available at: `https://<your-username>.github.io/<repo>/`
-
-> Progress saves per-device via `localStorage`. Use **Export**/**Import** to move it between devices.
+> Progress is stored in the browser (localStorage). Use Export/Import to move devices.
 
 ---
 
-## ▶️ Run Locally
+Generated on 2025-09-15.
 
-```bash
-python -m http.server 8080
-# visit http://localhost:8080
-```
 
----
+## Personalize
+- Edit **assets/config.json** to set your LinkedIn/GitHub/X links and brand colors.
+- Use the **Toggle Theme** button (dark/light). Preference is saved in your browser.
 
-## 🧩 Contents
-
-```
-.
-├─ index.html
-├─ assets/
-│  └─ favicon.svg
-└─ README.md
-```
-
----
-
-## 👤 Author
-
-**Sumit Chawla** — Cloud Solutions Architect learning AI/ML across AWS, Google Cloud, and Oracle.
-- LinkedIn: https://www.linkedin.com/in/YOUR-LINKEDIN
-- GitHub: https://github.com/YOUR-GITHUB
-- X (Twitter): https://x.com/YOUR-HANDLE
-
-> Replace the placeholders with your actual profile links.
-
----
-
-Made with ❤️ — generated on 2025-09-14.

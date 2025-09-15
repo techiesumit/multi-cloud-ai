@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GCP Reference Architecture — Vertex AI Hosting & RAG</title>
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;background:#0b1020;color:#e7ecff} .wrap{max-width:1000px;margin:0 auto;padding:24px} h1{margin:0 0 12px} .card{background:#121937;border:1px solid #2a3566;border-radius:14px;padding:16px;margin:14px 0} a{color:#5ce1e6}</style>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>GCP Reference Architecture — Vertex AI Hosting & RAG</h1>
+    <p>End‑to‑end view for online & batch inference with Vector Search and CI/CD. Open this file with internet access to load the diagram library.</p>
+    <div class="card">
+<div class="mermaid">
+flowchart LR
+  U[Users / Clients] -->|HTTPS/gRPC| EP[Vertex AI Endpoint]
+  subgraph Hosting
+    EP -->|Predictions| Logs[(Cloud Logging)]
+    EP --> Mon[(Cloud Monitoring)]
+  end
+
+  subgraph Data & Features
+    GCS[(Cloud Storage)]
+    BQ[(BigQuery)]
+    FEAT[Feature Store]
+  end
+
+  subgraph Training
+    WB[Vertex Workbench]
+    CT[Custom Training / AutoML]
+    MR[Model Registry]
+    WB --> CT --> MR
+  end
+
+  MR -- Deploy --> EP
+
+  subgraph Batch
+    BP[Batch Prediction Job]
+    BP -->|writes| GCS
+    BP -->|writes| BQ
+  end
+
+  subgraph RAG
+    EMB[Embeddings API]
+    VS[Vertex AI Vector Search]
+    EMB --> VS
+    App[App / API]
+    VS --> App
+  end
+
+  GCS --> CT
+  BQ --> CT
+  App -->|calls| EP
+  App -->|queries| VS
+  U --> App
+</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AWS Reference Architecture — Bedrock Hosting & RAG</title>
+  <style>body{font-family:system-ui,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;background:#0b1020;color:#e7ecff} .wrap{max-width:1000px;margin:0 auto;padding:24px} h1{margin:0 0 12px} .card{background:#121937;border:1px solid #2a3566;border-radius:14px;padding:16px;margin:14px 0} a{color:#5ce1e6}</style>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <h1>AWS Reference Architecture — Bedrock Hosting & RAG</h1>
+    <div class="card">
+<div class="mermaid">
+flowchart LR
+  U[Users / Clients] -->|HTTPS| APIGW[API Gateway]
+  APIGW --> LBD[Lambda]
+  LBD --> BR[Amazon Bedrock]
+  BR --> CW[(CloudWatch Logs/metrics)]
+  subgraph RAG
+    S3[(Amazon S3 Docs)]
+    KB[Bedrock Knowledge Base]
+    VDB[(Vector DB / OpenSearch)]
+    S3 --> KB --> BR
+    S3 --> VDB
+    VDB --> BR
+  end
+  subgraph Ingestion
+    TX[Textract OCR]
+    TX --> S3
+  end
+  U -->|Web/App| FE[Frontend]
+  FE --> APIGW
+</div>
+    </div>
+    <div class="card">
+      <ol>
+        <li>Serverless GenAI via <strong>Bedrock</strong> behind <em>API Gateway + Lambda</em>.</li>
+        <li>RAG using <strong>Knowledge Bases</strong> or OpenSearch; docs in <strong>S3</strong>.</li>
+        <li>OCR pipelines via <strong>Textract</strong> feeding RAG.</li>
+        <li>Observability in <strong>CloudWatch</strong>.</li>
+      </ol>
+    </div>
+  </div>
+</body>
+</html>

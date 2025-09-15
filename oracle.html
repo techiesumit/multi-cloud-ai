@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oracle AI/ML Hosting & RAG — by Sumit Chawla</title>
+  <link rel="icon" href="assets/favicon.svg">
+  <style>
+    :root{ --bg:#0b1020; --card:#121937; --ink:#e9ecff; --muted:#b9c0ff; --accent:#7c9bff; --accent-2:#5ce1e6; --border:#2a3566; }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif; background:linear-gradient(180deg,#090e1c 0%, #0b1020 30%, #0e1430 100%); color:var(--ink)}
+    header{position:sticky; top:0; backdrop-filter:saturate(1.3) blur(10px); background:rgba(9,14,28,.7); border-bottom:1px solid var(--border); z-index:5}
+    .wrap{max-width:1100px; margin:0 auto; padding:18px 20px}
+    h1{margin:0 0 6px; font-size: clamp(20px, 2.8vw, 34px)}
+    p.sub{margin:0; color:var(--muted)}
+    .topnav{margin-top:12px; display:flex; gap:12px; flex-wrap:wrap}
+    .topnav a{background:#0f1733; border:1px solid var(--border); color:var(--ink); padding:8px 12px; border-radius:10px; text-decoration:none; font-weight:600}
+    .topnav a:hover{background:#121f45}
+    main{max-width:1100px; margin:20px auto; padding:0 20px 80px}
+    .card{background:linear-gradient(180deg,#121937 0%, #101633 100%); border:1px solid var(--border); border-radius:18px; padding:16px; margin:14px 0; box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    a{color:var(--accent-2); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{background:#0f1733; border:1px solid var(--border); color:var(--ink); padding:10px 12px; border-radius:12px; text-decoration:none}
+    .btn-accent{background:linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%); color:#091028; border:none; font-weight:700}
+    .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+    .col-12{grid-column:span 12}
+    .muted{color:var(--muted)}
+  
+    /* Light theme variables */
+    body.light{
+      --bg:#f6f8ff; --card:#ffffff; --ink:#0b1020; --muted:#3b4366;
+      --accent: var(--accent); --accent-2: var(--accent-2); --good:#16a34a; --border:#d7ddff;
+      background:linear-gradient(180deg,#edf1ff 0%, #f6f8ff 100%);
+    }
+    body.light .card{ box-shadow: 0 12px 28px rgba(13, 20, 60, .07) }
+    .top-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .toggle{background:#0f1733; border:1px solid var(--border); color:var(--ink); padding:8px 12px; border-radius:10px; cursor:pointer}
+    body.light .toggle{background:#eef2ff}
+
+  </style>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  </script>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Oracle AI/ML — Hosting & RAG <span style="font-size:14px;color:#b9c0ff;font-weight:600"> — by Sumit Chawla</span></h1>
+      <p class="sub">Quickstarts, reference architecture, and mapping to your 20‑week plan.</p>
+      <div class="top-actions"><nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="gcp.html">GCP Hosting</a>
+        <a href="aws.html">AWS Bedrock</a>
+        <a href="oracle.html">Oracle AI/ML</a>
+        <a href="assets/oracle/oracle-reference-architecture.html" target="_blank" rel="noopener">Open Diagram</a>
+      </nav><button class="toggle" onclick="toggleTheme()">Toggle Theme</button></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap">
+      <div class="grid">
+        <div class="card col-12">
+          <h2>Quickstart Links</h2>
+          <div class="row" style="margin-top:6px">
+            <a class="btn" href="assets/oracle/oracle-hosting-week-mapping.md" download>Week Mapping (MD)</a>
+            
+<a class="btn" href="assets/oracle/oracle-hosting-week-mapping.md" download>Week Mapping (MD)</a>
+<a class="btn" href="assets/oracle/oracle_genai_invoke_template.py" download>Generative AI REST (Py)</a>
+<a class="btn btn-accent" href="assets/oracle/oracle-reference-architecture.html" target="_blank" rel="noopener">View Diagram</a>
+
+          </div>
+          <p class="muted" style="margin-top:8px">Replace placeholders (regions, IDs, auth). Keep secrets out of repos.</p>
+        </div>
+        <div class="card col-12">
+          <h2>Reference Architecture (inline)</h2>
+          <iframe src="assets/oracle/oracle-reference-architecture.html" title="Reference Architecture"></iframe>
+        </div>
+      </div>
+    
+      <section class="wrap">
+        <p id="footerProfile" class="sub"></p>
+      </section>
+  </main>
+<script>
+  // Theme toggle
+  const THEME_KEY = 'sc_theme';
+  function applyTheme(t){ document.body.classList.toggle('light', t==='light'); }
+  const saved = localStorage.getItem(THEME_KEY) || 'dark';
+  applyTheme(saved);
+  function toggleTheme(){ const t = document.body.classList.contains('light') ? 'dark' : 'light'; localStorage.setItem(THEME_KEY, t); applyTheme(t); }
+
+  // Dynamic footer/profile links from config.json
+  fetch('assets/config.json').then(r=>r.json()).then(cfg=>{
+    const f = document.getElementById('footerProfile');
+    if(!f) return;
+    f.innerHTML = `© ${new Date().getFullYear()} ${cfg.name} • Profiles: <a href="${cfg.linkedin}" target="_blank" rel="noopener">LinkedIn</a> · <a href="${cfg.github}" target="_blank" rel="noopener">GitHub</a> · <a href="${cfg.x}" target="_blank" rel="noopener">X</a>`;
+  }).catch(()=>{});
+
+  </script>
+</body>
+</html>
